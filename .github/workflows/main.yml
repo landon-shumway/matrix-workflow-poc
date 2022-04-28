@@ -11,7 +11,11 @@ jobs:
           {type: "Glue Pipeline v1_0", definition: "{}"}
         ]
     steps:
+      - name: Get start date
+        run: date
       - run: echo "$SERVICE_TYPE is $SERVICE_DEFINITION" # output for each separate run is "one is 1", "two is 2" and "three is 3"
         env:
           SERVICE_TYPE: ${{ matrix.arrays.type }}
           SERVICE_DEFINITION: ${{ matrix.arrays.definition }}
+      - name: Get end date
+        run: date
