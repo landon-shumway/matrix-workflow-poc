@@ -3,6 +3,7 @@ on: [pull_request, push]
 
 jobs:
   call-matrix-workflow:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         arrays: [ 
