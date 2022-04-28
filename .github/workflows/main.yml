@@ -1,14 +1,16 @@
 name: parse system
 on: [pull_request, push]
 
-strategy:
-  matrix:
-    arrays: [ 
-      {type: "CodeBuild Project v1_0", definition: "{\"environment\": {\"image\": \"some-image\"}}"}, 
-      {type: "Glue Pipeline v1_0", definition: "{}"}
-    ]
-steps:
-  - run: echo "$SERVICE_TYPE is $SERVICE_DEFINITION" # output for each separate run is "one is 1", "two is 2" and "three is 3"
-    env:
-      SERVICE_TYPE: ${{ matrix.arrays.type }}
-      SERVICE_DEFINITION: ${{ matrix.arrays.definition }}
+jobs:
+  call-matrix-workflow:
+    strategy:
+      matrix:
+        arrays: [ 
+          {type: "CodeBuild Project v1_0", definition: "{\"environment\": {\"image\": \"some-image\"}}"}, 
+          {type: "Glue Pipeline v1_0", definition: "{}"}
+        ]
+    steps:
+      - run: echo "$SERVICE_TYPE is $SERVICE_DEFINITION" # output for each separate run is "one is 1", "two is 2" and "three is 3"
+        env:
+          SERVICE_TYPE: ${{ matrix.arrays.type }}
+          SERVICE_DEFINITION: ${{ matrix.arrays.definition }}
